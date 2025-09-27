@@ -1,0 +1,236 @@
+/* CSS वेरिएबल्स और बेसिक सेटअप */
+:root {
+    --bg-color: #eaf2f8;
+    --container-bg: #ffffff;
+    --text-color: #2c3e50;
+    --border-color: #34495e;
+    --cell-border-color: #d5dbdb;
+    --highlight-bg: #d4e6f1;
+    --highlight-soft-bg: #ebf5fb;
+    --input-color: #2980b9;
+    --fixed-color: #2c3e50;
+    --error-color: #e74c3c;
+    --error-bg: #f9ebea;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode {
+    --bg-color: #2c3e50;
+    --container-bg: #34495e;
+    --text-color: #ecf0f1;
+    --border-color: #ecf0f1;
+    --cell-border-color: #5d6d7e;
+    --highlight-bg: #5d6d7e;
+    --highlight-soft-bg: #4a5a6a;
+    --input-color: #5dade2;
+    --fixed-color: #ecf0f1;
+    --error-color: #f1948a;
+    --error-bg: #78281f;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body {
+    background-color: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: var(--text-color);
+}
+
+/* पेज लोड एनिमेशन */
+@keyframes fadeInSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.container {
+    text-align: center;
+    background-color: var(--container-bg);
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px var(--shadow-color);
+    animation: fadeInSlideUp 0.6s ease-out;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: var(--text-color);
+    font-size: 32px;
+}
+
+.theme-btn {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: 2px solid var(--cell-border-color);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sudoku-board {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    width: min(90vw, 450px);
+    height: min(90vw, 450px);
+    margin: 0 auto 20px;
+    border: 3px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--container-bg);
+    position: relative; /* विन एनिमेशन के लिए */
+}
+
+/* विन एनिमेशन (Glowing Border) */
+@keyframes glowing-border {
+    0% { box-shadow: 0 0 5px #3498db, 0 0 10px #3498db; }
+    50% { box-shadow: 0 0 20px #9b59b6, 0 0 30px #9b59b6; }
+    100% { box-shadow: 0 0 5px #3498db, 0 0 10px #3498db; }
+}
+
+.board-solved {
+    animation: glowing-border 4s ease-in-out;
+}
+
+
+.cell {
+    border: 1px solid var(--cell-border-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: background-color 0.2s; /* स्मूथ ट्रांज़िशन */
+}
+
+.cell input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    text-align: center;
+    font-size: clamp(16px, 4vw, 22px);
+    font-weight: 600;
+    color: var(--input-color);
+    background-color: transparent;
+    caret-color: var(--input-color);
+}
+
+.cell input.fixed {
+    color: var(--fixed-color);
+    font-weight: 700;
+}
+
+.cell input.error {
+    color: var(--error-color);
+    background-color: var(--error-bg);
+}
+
+.cell.selected {
+    background-color: var(--highlight-bg);
+}
+
+.cell.highlighted {
+    background-color: var(--highlight-soft-bg);
+}
+
+/* Thick borders for 3x3 sub-grids */
+.cell:nth-child(3n):not(:nth-child(9n)) {
+    border-right: 2px solid var(--border-color);
+}
+.cell:nth-child(n+19):nth-child(-n+27),
+.cell:nth-child(n+46):nth-child(-n+54) {
+    border-bottom: 2px solid var(--border-color);
+}
+
+.controls {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    transition: all 0.3s ease; /* बेहतर ट्रांज़िशन */
+    box-shadow: 0 4px 6px var(--shadow-color);
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px var(--shadow-color);
+}
+
+button:active {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 6px var(--shadow-color);
+}
+
+.btn-level { background-color: #3498db; }
+.btn-level:hover { background-color: #2980b9; }
+.btn-action { background-color: #2ecc71; }
+.btn-action:hover { background-color: #27ae60; }
+.btn-undo { background-color: #f39c12; }
+.btn-undo:hover { background-color: #e67e22; }
+.btn-reset { background-color: #e74c3c; }
+.btn-reset:hover { background-color: #c0392b; }
+
+.numpad {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.numpad button {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    font-size: 18px;
+    background-color: #5d6d7e;
+}
+.numpad button:hover {
+    background-color: #34495e;
+}
+
+.message-area {
+    margin-top: 15px;
+    font-size: 16px;
+    color: #27ae60;
+    min-height: 24px;
+    font-weight: 600;
+}

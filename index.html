@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Sudoku Solver</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Interactive Sudoku</h1>
+            <button id="theme-toggle" class="theme-btn">🌙</button>
+        </div>
+        <div class="sudoku-board" id="sudoku-board"></div>
+        <div class="controls">
+            <div class="difficulty">
+                <button onclick="generateBoard('easy')" class="btn-level">Easy</button>
+                <button onclick="generateBoard('medium')" class="btn-level">Medium</button>
+                <button onclick="generateBoard('hard')" class="btn-level">Hard</button>
+            </div>
+            <div class="actions">
+                <button onclick="solveSudoku()" class="btn-action">Solve</button>
+                <button onclick="undoMove()" class="btn-action btn-undo">Undo</button>
+                <button onclick="resetBoard()" class="btn-action btn-reset">Reset</button>
+            </div>
+        </div>
+        <div class="numpad" id="numpad"></div>
+        <p id="message-area" class="message-area"></p>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
